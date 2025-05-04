@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Paradise - Order Delicious Pizza Online</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="Pizza Paradise Logo">
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-cta">
+                <a href="#order" class="order-btn">Order Now</a>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Delicious Pizza <span>Delivered Fast</span></h1>
+                <p>Experience the most authentic and delicious pizza made with premium ingredients and traditional recipes</p>
+                <div class="cta-buttons">
+                    <a href="#menu" class="btn primary-btn">Explore Menu</a>
+                    <a href="#order" class="btn secondary-btn">Order Online</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="home-img-1.png" alt="Delicious Pizza">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Us</h2>
+                <p>Our story and our mission</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="home-img-2.png" alt="About Us">
+                </div>
+                <div class="about-text">
+                    <h3>We Make The Best Pizza In Town</h3>
+                    <p>Founded with passion for authentic Italian cuisine, Pizza Paradise has been serving delicious pizzas since 2005. Our secret lies in fresh ingredients, traditional recipes, and dedication to quality.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <img src="about-1.svg" alt="Fresh Ingredients">
+                            <h4>Fresh Ingredients</h4>
+                            <p>We use only the freshest ingredients for our pizzas.</p>
+                        </div>
+                        <div class="feature">
+                            <img src="about-2.svg" alt="Fast Delivery">
+                            <h4>Fast Delivery</h4>
+                            <p>Hot pizza delivered to your doorstep within 30 minutes.</p>
+                        </div>
+                        <div class="feature">
+                            <img src="about-3.svg" alt="Quality Service">
+                            <h4>Quality Service</h4>
+                            <p>Customer satisfaction is our top priority.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Menu</h2>
+                <p>Explore our delicious offerings</p>
+            </div>
+            <div class="menu-categories">
+                <button class="menu-category active" data-category="pizza">🍕 Pizza</button>
+                <button class="menu-category" data-category="sides">🍟 Fries & Sides</button>
+                <button class="menu-category" data-category="wraps">🌯 Wraps</button>
+                <button class="menu-category" data-category="pastas">🍝 Pastas</button>
+                <button class="menu-category" data-category="sandwiches">🥪 Sandwiches</button>
+                <button class="menu-category" data-category="burgers">🍔 Burgers</button>
+                <button class="menu-category" data-category="desserts">🍧 Desserts</button>
+                <button class="menu-category" data-category="drinks">🥤 Drinks</button>
+                <button class="menu-category" data-category="special">🌟 Special</button>
+            </div>
+            <div class="menu-items">
+                <!-- Pizza section -->
+                <div class="category-items active" id="pizza-items">
+                    <!-- Pizza subcategories will be populated via JavaScript -->
+                </div>
+                
+                <!-- Other category sections will be populated via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>What we offer to our customers</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-card-img-container">
+                        <img src="service-1.jpg" alt="Fast Delivery">
+                    </div>
+                    <h3>Fast Delivery</h3>
+                    <p>We deliver your order promptly to your door</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-img-container">
+                        <img src="service-2.jpg" alt="Fresh Food">
+                    </div>
+                    <h3>Fresh Food</h3>
+                    <p>We use fresh ingredients of the highest quality</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-img-container">
+                        <img src="service-3.jpg" alt="Online Ordering">
+                    </div>
+                    <h3>Easy Ordering</h3>
+                    <p>Order online with our easy to use platform</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Customer Reviews</h2>
+                <p>What our customers say about us</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <div class="testimonial-content">
+                        <img src="client.png" alt="Customer" class="customer-img">
+                        <p>"Best pizza I've ever had! The crust is perfect and the toppings are always fresh."</p>
+                        <h4>Rahul Sharma</h4>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- More testimonials will be added -->
+            </div>
+            <div class="slider-controls">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="order">
+        <div class="container">
+            <div class="section-header">
+                <h2>Order Online</h2>
+                <p>Quick and easy ordering process</p>
+            </div>
+            <div class="order-container">
+                <div class="cart-section">
+                    <h3>Your Cart</h3>
+                    <div class="cart-items">
+                        <!-- Cart items will be added here -->
+                        <p class="empty-cart">Your cart is empty</p>
+                    </div>
+                    <div class="cart-total">
+                        <p>Subtotal: <span id="subtotal">₹0</span></p>
+                        <p>Tax (5%): <span id="tax">₹0</span></p>
+                        <p>Delivery: <span id="delivery">₹20</span></p>
+                        <p class="total">Total: <span id="total">₹0</span></p>
+                    </div>
+                </div>
+                <div class="checkout-section">
+                    <h3>Delivery Information</h3>
+                    <form id="order-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Delivery Address</label>
+                            <div class="location-info">
+                                <div class="location-title">Delivery Location:</div>
+                                <div class="location-value">Bilaspur, Rampur, India</div>
+                            </div>
+                            <div class="address-inputs">
+                                <div class="form-group">
+                                    <label for="area">Area/Locality</label>
+                                    <input type="text" id="area" placeholder="Enter your area or locality" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Complete Address</label>
+                                    <textarea id="address" placeholder="House/Flat No., Building Name, Street Name, Landmark" required></textarea>
+                                </div>
+                            </div>
+                            <input type="hidden" id="full-address" name="full-address">
+                            <input type="hidden" id="city" name="city" value="Bilaspur">
+                            <input type="hidden" id="state" name="state" value="Rampur">
+                        </div>
+                        <div class="form-group">
+                            <label for="payment">Payment Method</label>
+                            <select id="payment" required>
+                                <option value="">Select Payment Method</option>
+                                <option value="cash">Cash on Delivery</option>
+                                <option value="card">Credit/Debit Card</option>
+                                <option value="upi">UPI</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="checkout-btn">Place Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Get in touch with us</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Our Location</h4>
+                            <p>123 Pizza Street, Food City, 400001</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p>+91 9876543210</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p>info@pizzaparadise.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Opening Hours</h4>
+                            <p>11:00 AM - 11:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="logo.png" alt="Pizza Paradise Logo">
+                    <p>The best pizza experience in town.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#order">Order Now</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe for special offers and updates</p>
+                    <form>
+                        <input type="email" placeholder="Your Email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Pizza Paradise. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Confirmation Modal -->
+    <div class="modal" id="order-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3>Order Placed Successfully!</h3>
+                <p>Your delicious pizza is on the way.</p>
+                <p>Order ID: <span id="order-id"></span></p>
+                <p>Estimated delivery time: 30-45 minutes</p>
+                <button class="modal-btn">Track Order</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html> 

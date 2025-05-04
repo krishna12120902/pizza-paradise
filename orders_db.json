@@ -1,0 +1,79 @@
+{
+  "orders": [
+    {
+      "orderId": "ORD-68428",
+      "orderDate": "2025-05-04T08:55:45.855Z",
+      "customerInfo": {
+        "name": "Krishna garg",
+        "phone": "9997618722",
+        "address": "Shib bagh mandi, bilasppur",
+        "paymentMethod": "cash"
+      },
+      "items": [
+        {
+          "name": "Strawberry Softie",
+          "price": 30,
+          "size": "regular",
+          "image": "menu-3.jpg",
+          "quantity": 2
+        }
+      ],
+      "totalAmount": "83",
+      "status": "canceled"
+    },
+    {
+      "orderId": "ORD-38067",
+      "orderDate": "2025-05-04T09:04:42.548Z",
+      "customerInfo": {
+        "name": "Krishna garg",
+        "phone": "9997618722",
+        "address": "Shib bagh mandi, Sigra, Varanasi, Uttar Pradesh, India",
+        "streetAddress": "Shib bagh mandi",
+        "coordinates": {
+          "lat": "30.111334",
+          "lng": "78.2874772"
+        },
+        "state": "Uttar Pradesh",
+        "district": "Varanasi",
+        "area": "Sigra",
+        "paymentMethod": "cash"
+      },
+      "items": [
+        {
+          "name": "Single Cheese Pizza",
+          "price": 300,
+          "size": "large",
+          "image": "http://127.0.0.1:5500/pizza-1.jpg",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": "335",
+      "status": "canceled"
+    },
+    {
+      "orderId": "ORD-49055",
+      "orderDate": "2025-05-04T09:13:04.508Z",
+      "customerInfo": {
+        "name": "Krishna garg",
+        "phone": "9997618722",
+        "address": "uwhefcihxbqiweac, acjbwihab, Bilaspur, Rampur, India",
+        "streetAddress": "uwhefcihxbqiweac",
+        "area": "acjbwihab",
+        "city": "Bilaspur",
+        "state": "Rampur",
+        "paymentMethod": "card"
+      },
+      "items": [
+        {
+          "name": "Veg Wrap",
+          "price": 100,
+          "size": "regular",
+          "image": "menu-3.jpg",
+          "quantity": 2
+        }
+      ],
+      "totalAmount": "230",
+      "status": "pending"
+    }
+  ]
+}

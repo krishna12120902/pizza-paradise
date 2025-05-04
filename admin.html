@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff5722;
+            --secondary-color: #4caf50;
+            --dark-color: #333;
+            --light-color: #f4f4f4;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --gray-color: #6c757d;
+            --white-color: #ffffff;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--white-color);
+            box-shadow: var(--box-shadow);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content h1 {
+            color: var(--primary-color);
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--white-color);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .stat-card.orders i {
+            color: var(--primary-color);
+        }
+
+        .stat-card.pending i {
+            color: var(--warning-color);
+        }
+
+        .stat-card.completed i {
+            color: var(--success-color);
+        }
+
+        .stat-card.canceled i {
+            color: var(--danger-color);
+        }
+
+        .stat-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--gray-color);
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .orders-section {
+            background-color: var(--white-color);
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .orders-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .orders-header h2 {
+            color: var(--dark-color);
+        }
+
+        .orders-filter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: none;
+            background-color: var(--light-color);
+            color: var(--gray-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+
+        .orders-table-container {
+            overflow-x: auto;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .orders-table th, .orders-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .orders-table th {
+            background-color: rgba(0, 0, 0, 0.03);
+            color: var(--gray-color);
+            font-weight: 500;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #856404;
+        }
+
+        .status-processing {
+            background-color: rgba(23, 162, 184, 0.2);
+            color: #0c5460;
+        }
+
+        .status-completed {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #155724;
+        }
+
+        .status-canceled {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: #721c24;
+        }
+
+        .order-details {
+            display: none;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.02);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .order-details.show {
+            display: block;
+        }
+
+        .details-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .customer-info, .order-items {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-group {
+            margin-bottom: 15px;
+        }
+
+        .info-group h4 {
+            margin-bottom: 5px;
+            color: var(--gray-color);
+            font-weight: 500;
+        }
+
+        .item-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .item-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .item-list li:last-child {
+            border-bottom: none;
+        }
+
+        .update-status {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .update-status select {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .update-btn {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .update-btn:hover {
+            background-color: #e64a19;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-right: 5px;
+        }
+
+        .view-btn {
+            background-color: var(--info-color);
+            color: var(--white-color);
+        }
+
+        .view-btn:hover {
+            background-color: #138496;
+        }
+
+        .no-orders {
+            padding: 30px;
+            text-align: center;
+            color: var(--gray-color);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray-color);
+        }
+
+        .loading i {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .stat-card {
+                text-align: center;
+            }
+            
+            .orders-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .orders-filter {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .details-flex {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .update-status {
+                flex-direction: column;
+            }
+        }
+
+        /* Refresh button styling */
+        .refresh-btn {
+            padding: 8px 15px;
+            background-color: var(--info-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .refresh-btn:hover {
+            background-color: #138496;
+        }
+
+        /* Notification container styles */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .notification {
+            background-color: var(--white-color);
+            border-left: 4px solid var(--primary-color);
+            box-shadow: var(--box-shadow);
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            max-width: 400px;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .notification-content h4 {
+            margin-bottom: 5px;
+        }
+
+        .notification-content p {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Restaurant Admin Dashboard</h1>
+                <button id="refreshBtn" class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh Data
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="dashboard-stats">
+            <div class="stat-card orders">
+                <i class="fas fa-shopping-bag"></i>
+                <h3>Total Orders</h3>
+                <div id="totalOrders" class="value">0</div>
+            </div>
+            <div class="stat-card pending">
+                <i class="fas fa-clock"></i>
+                <h3>Pending Orders</h3>
+                <div id="pendingOrders" class="value">0</div>
+            </div>
+            <div class="stat-card completed">
+                <i class="fas fa-check-circle"></i>
+                <h3>Completed Orders</h3>
+                <div id="completedOrders" class="value">0</div>
+            </div>
+            <div class="stat-card canceled">
+                <i class="fas fa-times-circle"></i>
+                <h3>Canceled Orders</h3>
+                <div id="canceledOrders" class="value">0</div>
+            </div>
+        </div>
+
+        <div class="orders-section">
+            <div class="orders-header">
+                <h2>Recent Orders</h2>
+                <div class="orders-filter">
+                    <button class="filter-btn active" data-filter="all">All Orders</button>
+                    <button class="filter-btn" data-filter="pending">Pending</button>
+                    <button class="filter-btn" data-filter="processing">Processing</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                    <button class="filter-btn" data-filter="canceled">Canceled</button>
+                </div>
+            </div>
+            
+            <div id="ordersTableContainer" class="orders-table-container">
+                <div id="loadingOrders" class="loading">
+                    <i class="fas fa-spinner"></i>
+                    <p>Loading orders...</p>
+                </div>
+                <div id="noOrders" class="no-orders" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>No orders found</p>
+                </div>
+                <table id="ordersTable" class="orders-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date & Time</th>
+                            <th>Customer</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Order rows will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification-container" id="notificationContainer">
+        <!-- Notifications will be added here dynamically -->
+    </div>
+
+    <script>
+        // DOM Elements
+        const totalOrdersEl = document.getElementById('totalOrders');
+        const pendingOrdersEl = document.getElementById('pendingOrders');
+        const completedOrdersEl = document.getElementById('completedOrders');
+        const canceledOrdersEl = document.getElementById('canceledOrders');
+        const ordersTableBody = document.getElementById('ordersTableBody');
+        const ordersTable = document.getElementById('ordersTable');
+        const loadingOrders = document.getElementById('loadingOrders');
+        const noOrders = document.getElementById('noOrders');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const notificationContainer = document.getElementById('notificationContainer');
+
+        // Store orders data
+        let ordersData = [];
+        let currentFilter = 'all';
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchOrders();
+            
+            // Set up refresh button
+            refreshBtn.addEventListener('click', fetchOrders);
+            
+            // Set up filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    currentFilter = filter;
+                    
+                    // Update active state
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter and render orders
+                    renderOrders();
+                });
+            });
+            
+            // Set up auto-refresh every 5 minutes
+            setInterval(fetchOrders, 5 * 60 * 1000);
+        });
+
+        // Fetch orders from API
+        function fetchOrders() {
+            // Show loading
+            loadingOrders.style.display = 'block';
+            ordersTable.style.display = 'none';
+            noOrders.style.display = 'none';
+
+            // Add loading animation to refresh button
+            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            refreshBtn.disabled = true;
+
+            console.log('Fetching orders from server...');
+            
+            // Fetch orders
+            fetch('http://localhost:3000/api/orders')
+                .then(response => {
+                    console.log('Server response status:', response.status);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Received orders data:', data);
+                    ordersData = data;
+                    updateDashboardStats();
+                    renderOrders();
+                    
+                    // Add success notification
+                    showNotification('Data Updated', 'Order data has been refreshed', 'success');
+                })
+                .catch(error => {
+                    console.error('Error fetching orders:', error);
+                    showNotification('Error', 'Failed to fetch orders. Try again later.', 'error');
+                    
+                    // For demonstration, use sample data if API fails
+                    ordersData = [
+                        {
+                            orderId: "ORD12345",
+                            orderDate: new Date().toISOString(),
+                            customerInfo: {
+                                name: "John Doe",
+                                phone: "1234567890",
+                                address: "123 Main St, Bilaspur, Rampur, India",
+                                paymentMethod: "Cash on Delivery"
+                            },
+                            items: [
+                                { name: "Margherita Pizza", size: "Medium", price: 299, quantity: 2 },
+                                { name: "Coca Cola", size: "Regular", price: 60, quantity: 1 }
+                            ],
+                            totalAmount: "658",
+                            status: "pending"
+                        },
+                        {
+                            orderId: "ORD12346",
+                            orderDate: new Date(Date.now() - 3600000).toISOString(),
+                            customerInfo: {
+                                name: "Jane Smith",
+                                phone: "9876543210",
+                                address: "456 Park Avenue, Bilaspur, Rampur, India",
+                                paymentMethod: "UPI"
+                            },
+                            items: [
+                                { name: "Pepperoni Pizza", size: "Large", price: 499, quantity: 1 },
+                                { name: "French Fries", size: "Regular", price: 99, quantity: 1 }
+                            ],
+                            totalAmount: "598",
+                            status: "completed"
+                        }
+                    ];
+                    
+                    updateDashboardStats();
+                    renderOrders();
+                })
+                .finally(() => {
+                    // Reset refresh button
+                    refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
+                    refreshBtn.disabled = false;
+                });
+        }
+
+        // Update dashboard statistics
+        function updateDashboardStats() {
+            const total = ordersData.length;
+            const pending = ordersData.filter(order => order.status === 'pending').length;
+            const processing = ordersData.filter(order => order.status === 'processing').length;
+            const completed = ordersData.filter(order => order.status === 'completed').length;
+            const canceled = ordersData.filter(order => order.status === 'canceled').length;
+
+            totalOrdersEl.textContent = total;
+            pendingOrdersEl.textContent = pending;
+            completedOrdersEl.textContent = completed;
+            canceledOrdersEl.textContent = canceled;
+        }
+
+        // Render orders based on current filter
+        function renderOrders() {
+            // Filter orders
+            let filteredOrders = ordersData;
+            if (currentFilter !== 'all') {
+                filteredOrders = ordersData.filter(order => order.status === currentFilter);
+            }
+
+            // Sort orders by date (newest first)
+            filteredOrders.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+
+            // Update UI
+            if (filteredOrders.length === 0) {
+                ordersTable.style.display = 'none';
+                noOrders.style.display = 'block';
+            } else {
+                ordersTable.style.display = 'table';
+                noOrders.style.display = 'none';
+                renderOrdersTable(filteredOrders);
+            }
+
+            loadingOrders.style.display = 'none';
+        }
+
+        // Render orders table
+        function renderOrdersTable(orders) {
+            ordersTableBody.innerHTML = '';
+
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>${formatDate(order.orderDate)}</td>
+                    <td>${order.customerInfo.name}<br><span style="color: var(--gray-color); font-size: 0.8rem;">${order.customerInfo.phone}</span></td>
+                    <td>₹${order.totalAmount}</td>
+                    <td><span class="status-badge status-${order.status}">${capitalizeFirstLetter(order.status)}</span></td>
+                    <td>
+                        <button class="action-btn view-btn" data-id="${order.orderId}">View Details</button>
+                    </td>
+                `;
+                
+                ordersTableBody.appendChild(row);
+                
+                // Create order details row
+                const detailsRow = document.createElement('tr');
+                detailsRow.innerHTML = `
+                    <td colspan="6">
+                        <div class="order-details" id="details-${order.orderId}">
+                            <div class="details-flex">
+                                <div class="customer-info">
+                                    <h3>Customer Information</h3>
+                                    <div class="info-group">
+                                        <h4>Name</h4>
+                                        <p>${order.customerInfo.name}</p>
+                                    </div>
+                                    <div class="info-group">
+                                        <h4>Phone</h4>
+                                        <p>${order.customerInfo.phone}</p>
+                                    </div>
+                                    <div class="info-group">
+                                        <h4>Address</h4>
+                                        <p>${order.customerInfo.address}</p>
+                                    </div>
+                                    <div class="info-group">
+                                        <h4>Payment Method</h4>
+                                        <p>${order.customerInfo.paymentMethod}</p>
+                                    </div>
+                                </div>
+                                <div class="order-items">
+                                    <h3>Order Items</h3>
+                                    <ul class="item-list">
+                                        ${order.items.map(item => `
+                                            <li>
+                                                <div>
+                                                    <strong>${item.name}</strong> (${item.size}) x ${item.quantity}
+                                                </div>
+                                                <div>₹${item.price * item.quantity}</div>
+                                            </li>
+                                        `).join('')}
+                                        <li style="border-top: 1px dashed #ddd; margin-top: 10px; padding-top: 10px;">
+                                            <div><strong>Total</strong></div>
+                                            <div><strong>₹${order.totalAmount}</strong></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="update-status">
+                                <select id="status-${order.orderId}">
+                                    <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="processing" ${order.status === 'processing' ? 'selected' : ''}>Processing</option>
+                                    <option value="completed" ${order.status === 'completed' ? 'selected' : ''}>Completed</option>
+                                    <option value="canceled" ${order.status === 'canceled' ? 'selected' : ''}>Canceled</option>
+                                </select>
+                                <button class="update-btn" data-id="${order.orderId}">Update Status</button>
+                            </div>
+                        </div>
+                    </td>
+                `;
+                
+                ordersTableBody.appendChild(detailsRow);
+            });
+
+            // Add event listeners for view buttons
+            document.querySelectorAll('.view-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const orderId = this.getAttribute('data-id');
+                    const detailsEl = document.getElementById(`details-${orderId}`);
+                    
+                    // Close any other open details
+                    document.querySelectorAll('.order-details.show').forEach(detail => {
+                        if (detail.id !== `details-${orderId}`) {
+                            detail.classList.remove('show');
+                        }
+                    });
+                    
+                    // Toggle current details
+                    detailsEl.classList.toggle('show');
+                });
+            });
+
+            // Add event listeners for update buttons
+            document.querySelectorAll('.update-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const orderId = this.getAttribute('data-id');
+                    const status = document.getElementById(`status-${orderId}`).value;
+                    
+                    updateOrderStatus(orderId, status);
+                });
+            });
+        }
+
+        // Update order status
+        function updateOrderStatus(orderId, status) {
+            // Show loading in button
+            const button = document.querySelector(`.update-btn[data-id="${orderId}"]`);
+            const originalText = button.textContent;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+            button.disabled = true;
+
+            console.log(`Updating order ${orderId} status to ${status}`);
+            
+            // Call API to update status
+            fetch(`http://localhost:3000/api/orders/${orderId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status })
+            })
+            .then(response => {
+                console.log('Server response status:', response.status);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Update response data:', data);
+                if (data.success) {
+                    // Update local data
+                    const orderIndex = ordersData.findIndex(order => order.orderId === orderId);
+                    if (orderIndex !== -1) {
+                        ordersData[orderIndex].status = status;
+                    }
+                    
+                    // Update UI
+                    updateDashboardStats();
+                    renderOrders();
+                    
+                    // Show success notification
+                    showNotification('Status Updated', `Order #${orderId} status changed to ${capitalizeFirstLetter(status)}`, 'success');
+                } else {
+                    showNotification('Update Failed', data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating order status:', error);
+                
+                // For demonstration, update local data if API fails
+                const orderIndex = ordersData.findIndex(order => order.orderId === orderId);
+                if (orderIndex !== -1) {
+                    ordersData[orderIndex].status = status;
+                    
+                    // Update UI
+                    updateDashboardStats();
+                    renderOrders();
+                    
+                    // Show success notification
+                    showNotification('Status Updated', `Order #${orderId} status changed to ${capitalizeFirstLetter(status)}`, 'success');
+                } else {
+                    showNotification('Error', 'Failed to update order status. Try again later.', 'error');
+                }
+            })
+            .finally(() => {
+                // Reset button
+                button.textContent = originalText;
+                button.disabled = false;
+            });
+        }
+
+        // Helper function to format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return date.toLocaleDateString('en-IN', options);
+        }
+
+        // Helper function to capitalize first letter
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // Show notification
+        function showNotification(title, message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.classList.add('notification');
+            
+            // Set icon based on type
+            let icon = 'info-circle';
+            if (type === 'success') icon = 'check-circle';
+            if (type === 'error') icon = 'exclamation-circle';
+            
+            notification.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <div class="notification-content">
+                    <h4>${title}</h4>
+                    <p>${message}</p>
+                </div>
+            `;
+            
+            // Add to container
+            notificationContainer.appendChild(notification);
+            
+            // Show notification with animation
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 5000);
+        }
+    </script>
+</body>
+</html> 
