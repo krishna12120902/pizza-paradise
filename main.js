@@ -65,6 +65,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderModal = document.getElementById('order-modal');
     const closeModal = document.querySelector('.close-modal');
 
+    // API URL - Change this to your Render.com URL when deployed
+    const API_URL = 'https://pizza-paradise-api.onrender.com';
+    // For local development, uncomment the line below:
+    // const API_URL = 'http://localhost:3000';
+
     if (orderForm) {
         orderForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -131,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             // Send order to server
-            fetch('http://localhost:3000/api/place-order', {
+            fetch(`${API_URL}/api/place-order`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
